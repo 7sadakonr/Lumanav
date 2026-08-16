@@ -1,32 +1,50 @@
-# React + TypeScript + Vite
+# Lumanav - Glass Navbar Demo
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Lumanav is a modern, responsive navigation bar featuring a sleek glassmorphism design. Built with React, TypeScript, and Vite, it provides a beautiful and interactive user interface component suitable for modern web applications.
 
-Currently, two official plugins are available:
+## 📸 Preview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+![Glass Navbar Demo](./public/demo.png)
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Glassmorphism Design**: Semi-transparent background with background blur effect.
+- **Responsive Layout**: Adapts seamlessly to different screen sizes.
+- **Smooth Animations**: Interactive hover effects and transitions.
+- **Modern Tech Stack**: Built using React, TypeScript, and Vite for fast development and optimal performance.
 
-## Expanding the Oxlint configuration
+## 🚀 Getting Started
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+### Prerequisites
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+- Node.js (v18 or higher recommended)
+- npm, yarn, or pnpm
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/7sadakonr/Lumanav.git
+   ```
+
+2. Navigate to the project directory:
+   ```bash
+   cd Lumanav
+   ```
+
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+## 🛠️ Built With
+
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- Vanilla CSS (for styling and animations)
