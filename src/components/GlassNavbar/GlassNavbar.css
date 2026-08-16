@@ -1,0 +1,181 @@
+.glass-navbar {
+  --glass-radius: 999px;
+  --reflection-line-size: 2px;
+  --reflection-line-blur: 14px;
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  z-index: 1000;
+  isolation: isolate;
+  width: min(520px, calc(100vw - 32px));
+  height: 60px;
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: var(--glass-radius);
+  background: rgba(10, 10, 16, 0.58);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  transform: translateX(-50%);
+  backdrop-filter: blur(12px) saturate(125%);
+  -webkit-backdrop-filter: blur(12px) saturate(125%);
+}
+
+.glass-navbar__reflection {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: var(--glass-radius);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.glass-navbar__reflection--visible {
+  opacity: 1;
+}
+
+.glass-navbar__mirror-scene.glass-demo {
+  position: absolute !important;
+  inset: 0 !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+}
+
+.glass-navbar__mirror-scene--edge {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  box-sizing: border-box;
+  padding: var(--reflection-line-size);
+  border-radius: var(--glass-radius);
+  filter: blur(var(--reflection-line-blur)) saturate(1.42) brightness(1.55);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+.glass-navbar__mirror-scene--edge .glass-navbar__mirror-source {
+  --mirror-scale-x: 1.2;
+}
+
+.glass-navbar__mirror-edge-fade {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  border-radius: var(--glass-radius);
+  opacity: clamp(0.34, calc(var(--reflection-strength, 0.14) * 1.25), 0.78);
+  mask-image: linear-gradient(to bottom, transparent 0, transparent 39%, rgba(0, 0, 0, 0.28) 47%, black 60%);
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 39%,
+    rgba(0, 0, 0, 0.28) 47%,
+    black 60%
+  );
+}
+
+.glass-navbar__mirror-scene--glow {
+  z-index: 1;
+  opacity: calc(var(--reflection-strength, 0.14) * 0.68);
+  filter: blur(7px) saturate(1.16) brightness(1.12);
+  transform: scaleX(1.24);
+  transform-origin: center bottom;
+  mask-image: linear-gradient(to top, black 0, rgba(0, 0, 0, 0.8) 5px, rgba(0, 0, 0, 0.18) 11px, transparent 16px);
+  -webkit-mask-image: linear-gradient(
+    to top,
+    black 0,
+    rgba(0, 0, 0, 0.8) 5px,
+    rgba(0, 0, 0, 0.18) 11px,
+    transparent 16px
+  );
+}
+
+.glass-navbar__mirror-source {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: var(--mirror-width) !important;
+  height: var(--mirror-height) !important;
+  min-height: var(--mirror-height) !important;
+  margin: 0 !important;
+  pointer-events: none !important;
+  transform: translate3d(var(--mirror-x), var(--mirror-y), 0) scaleX(var(--mirror-scale-x, 1)) !important;
+  transform-origin: center bottom;
+}
+
+.glass-navbar__mirror-source video {
+  pointer-events: none !important;
+}
+
+.glass-navbar__mirror-scene .glass-navbar__mirror-source :is(h1, h2, h3, h4, h5, h6, p, span, strong, a, button, li) {
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  text-shadow: none !important;
+}
+
+.glass-navbar__content {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  height: 100%;
+  padding: 6px;
+}
+
+.glass-navbar__item {
+  height: 100%;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 160ms ease, background-color 160ms ease;
+}
+
+.glass-navbar__item:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.glass-navbar__item:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.82);
+  outline-offset: -3px;
+}
+
+.glass-navbar__item--active {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.96);
+}
+
+@media (max-width: 640px) {
+  .glass-navbar {
+    top: 12px;
+    width: calc(100vw - 24px);
+    height: 54px;
+    backdrop-filter: blur(9px) saturate(120%);
+    -webkit-backdrop-filter: blur(9px) saturate(120%);
+  }
+
+  .glass-navbar__mirror-scene--glow {
+    filter: blur(6px) saturate(1.14) brightness(1.1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-navbar *,
+  .glass-navbar *::before,
+  .glass-navbar *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-navbar {
+    background: rgba(12, 12, 18, 0.94);
+  }
+}
