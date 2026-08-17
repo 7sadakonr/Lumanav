@@ -1,4 +1,7 @@
 # @7sadakonr/lumanav
+- npm i @7sadakonr/lumanav
+
+# Lumanav - Glass Navbar Demo
 
 Lumanav is a React Component Library that provides a glassmorphism navbar with a dynamic, real-time reflection effect based on the content behind it. It reads the background color and content structure beneath it to render a visually accurate, spatial reflection.
 
@@ -96,3 +99,8 @@ Ensure you are logged in to npm, then publish:
 ```bash
 npm publish
 ```
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- Vanilla CSS (for styling and animations)
+
