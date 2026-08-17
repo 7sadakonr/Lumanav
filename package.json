@@ -19,10 +19,11 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build && tsc -b tsconfig.lib.json",
+    "build": "tsc -b tsconfig.app.json && vite build",
+    "build:lib": "vite build -c vite.lib.config.ts && tsc -b tsconfig.lib.json",
     "lint": "oxlint",
     "preview": "vite preview",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build:lib"
   },
   "peerDependencies": {
     "react": ">=18 <20",
