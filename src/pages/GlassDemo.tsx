@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { GlassNavbar } from '../components/GlassNavbar/GlassNavbar'
+import { Lumanav } from '../components/Lumanav/Lumanav'
 import './GlassDemo.css'
 
 const cards = [
@@ -60,7 +60,13 @@ export function GlassDemo() {
 
   return (
     <div className={`glass-demo${debugReflection ? ' debug-reflection' : ''}`}>
-      <GlassNavbar />
+      <Lumanav
+        items={[
+          { id: 'overview', label: 'Overview' },
+          { id: 'features', label: 'Features' },
+          { id: 'contact', label: 'Contact' },
+        ]}
+      />
 
       <button
         className="glass-demo__debug-toggle"

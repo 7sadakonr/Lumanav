@@ -1,50 +1,98 @@
-# Lumanav - Glass Navbar Demo
+# @7sadakonr/lumanav
 
-Lumanav is a modern, responsive navigation bar featuring a sleek glassmorphism design. Built with React, TypeScript, and Vite, it provides a beautiful and interactive user interface component suitable for modern web applications.
+Lumanav is a React Component Library that provides a glassmorphism navbar with a dynamic, real-time reflection effect based on the content behind it. It reads the background color and content structure beneath it to render a visually accurate, spatial reflection.
 
-## 📸 Preview
+## Installation
 
-![Glass Navbar Demo](./public/demo.png)
+```bash
+npm install @7sadakonr/lumanav
+```
 
-## ✨ Features
+## Quick Start
 
-- **Glassmorphism Design**: Semi-transparent background with background blur effect.
-- **Responsive Layout**: Adapts seamlessly to different screen sizes.
-- **Smooth Animations**: Interactive hover effects and transitions.
-- **Modern Tech Stack**: Built using React, TypeScript, and Vite for fast development and optimal performance.
+Import the `Lumanav` component and its CSS file into your React application.
 
-## 🚀 Getting Started
+```tsx
+import { Lumanav } from '@7sadakonr/lumanav'
+import '@7sadakonr/lumanav/style.css'
 
-### Prerequisites
+function App() {
+  return (
+    <div>
+      <Lumanav
+        items={[
+          { id: 'home', label: 'Home', href: '#home' },
+          { id: 'projects', label: 'Projects', href: '#projects' },
+          { id: 'contact', label: 'Contact', href: '#contact' },
+        ]}
+      />
+      <main>
+        {/* Your content here */}
+      </main>
+    </div>
+  )
+}
+```
 
-- Node.js (v18 or higher recommended)
-- npm, yarn, or pnpm
+## Reflection Source
 
-### Installation
+The `Lumanav` component captures reflections dynamically using a `MutationObserver` and `IntersectionObserver`. To define which elements should be reflected in the navbar, add the `data-reflection-source` attribute to a container element. Alternatively, semantic elements like `<section>` or `<article>` will also be targeted automatically.
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/7sadakonr/Lumanav.git
-   ```
+Example:
 
-2. Navigate to the project directory:
-   ```bash
-   cd Lumanav
-   ```
+```tsx
+<main>
+  {/* The navbar will read the text/colors in this section to create the reflection */}
+  <section data-reflection-source>
+    <h1>Hero</h1>
+  </section>
+</main>
+```
 
-3. Install dependencies:
-   ```bash
-   npm install
-   ```
+## Props
 
-4. Start the development server:
-   ```bash
-   npm run dev
-   ```
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `items` | `LumanavItem[]` | Required | Array of navigation items to display. |
+| `defaultActiveItem` | `string` | `items[0].id` | The id of the initially active item. |
+| `className` | `string` | `""` | Additional CSS classes for the `<nav>` wrapper. |
 
-## 🛠️ Built With
+### `LumanavItem`
 
-- [React](https://reactjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Vite](https://vitejs.dev/)
-- Vanilla CSS (for styling and animations)
+| Property | Type | Description |
+|---|---|---|
+| `id` | `string` | Unique identifier for the item. |
+| `label` | `string` | Display text for the item. |
+| `href` | `string` (optional) | If provided, an `<a>` tag will be rendered instead of `<button>`. |
+
+## Development
+
+This repository contains both the library code and a demo playground.
+
+- Library code: `src/components/Lumanav/` and `src/index.ts`
+- Demo application: `src/pages/` and `src/App.tsx`
+
+Run the development server for the demo playground:
+
+```bash
+npm install
+npm run dev
+```
+
+## Build
+
+To build the library package for publishing:
+
+```bash
+npm run build
+```
+
+The output will be generated in the `dist/` directory, containing ES Module (`.js`), CommonJS (`.cjs`), TypeScript declarations (`.d.ts`), and the bundled CSS (`style.css`).
+
+## Publishing
+
+Ensure you are logged in to npm, then publish:
+
+```bash
+npm publish
+```
