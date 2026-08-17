@@ -1,3 +1,5 @@
+- npm i @7sadakonr/lumanav
+
 # Lumanav - Glass Navbar Demo
 
 Lumanav is a modern, responsive navigation bar featuring a sleek glassmorphism design. Built with React, TypeScript, and Vite, it provides a beautiful and interactive user interface component suitable for modern web applications.
@@ -48,4 +50,4 @@ Lumanav is a modern, responsive navigation bar featuring a sleek glassmorphism d
 - [TypeScript](https://www.typescriptlang.org/)
 - [Vite](https://vitejs.dev/)
 - Vanilla CSS (for styling and animations)
-- npm i @7sadakonr/lumanav
+
