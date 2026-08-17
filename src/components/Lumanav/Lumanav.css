@@ -1,4 +1,4 @@
-.glass-navbar {
+.lumanav {
   --glass-radius: 999px;
   --reflection-line-size: 2px;
   --reflection-line-blur: 14px;
@@ -15,11 +15,11 @@
   background: rgba(10, 10, 16, 0.58);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
   transform: translateX(-50%);
-  backdrop-filter: blur(12px) saturate(125%);
   -webkit-backdrop-filter: blur(12px) saturate(125%);
+  backdrop-filter: blur(12px) saturate(125%);
 }
 
-.glass-navbar__reflection {
+.lumanav__reflection {
   position: absolute;
   inset: 0;
   z-index: 1;
@@ -30,11 +30,11 @@
   transition: opacity 260ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.glass-navbar__reflection--visible {
+.lumanav__reflection--visible {
   opacity: 1;
 }
 
-.glass-navbar__mirror-scene.glass-demo {
+.lumanav__mirror-scene.glass-demo {
   position: absolute !important;
   inset: 0 !important;
   min-height: 0 !important;
@@ -42,7 +42,7 @@
   background: transparent !important;
 }
 
-.glass-navbar__mirror-scene--edge {
+.lumanav__mirror-scene--edge {
   position: absolute;
   inset: 0;
   z-index: 2;
@@ -56,11 +56,11 @@
   mask-composite: exclude;
 }
 
-.glass-navbar__mirror-scene--edge .glass-navbar__mirror-source {
+.lumanav__mirror-scene--edge .lumanav__mirror-source {
   --mirror-scale-x: 1.2;
 }
 
-.glass-navbar__mirror-edge-fade {
+.lumanav__mirror-edge-fade {
   position: absolute;
   inset: 0;
   z-index: 2;
@@ -77,7 +77,7 @@
   );
 }
 
-.glass-navbar__mirror-scene--glow {
+.lumanav__mirror-scene--glow {
   z-index: 1;
   opacity: calc(var(--reflection-strength, 0.14) * 0.68);
   filter: blur(7px) saturate(1.16) brightness(1.12);
@@ -93,7 +93,7 @@
   );
 }
 
-.glass-navbar__mirror-source {
+.lumanav__mirror-source {
   position: absolute !important;
   top: 0 !important;
   left: 0 !important;
@@ -106,17 +106,17 @@
   transform-origin: center bottom;
 }
 
-.glass-navbar__mirror-source video {
+.lumanav__mirror-source video {
   pointer-events: none !important;
 }
 
-.glass-navbar__mirror-scene .glass-navbar__mirror-source :is(h1, h2, h3, h4, h5, h6, p, span, strong, a, button, li) {
+.lumanav__mirror-scene .lumanav__mirror-source :is(h1, h2, h3, h4, h5, h6, p, span, strong, a, button, li) {
   color: transparent !important;
   -webkit-text-fill-color: transparent !important;
   text-shadow: none !important;
 }
 
-.glass-navbar__content {
+.lumanav__content {
   position: relative;
   z-index: 2;
   display: grid;
@@ -126,7 +126,7 @@
   padding: 6px;
 }
 
-.glass-navbar__item {
+.lumanav__item {
   height: 100%;
   border: 0;
   border-radius: 999px;
@@ -138,44 +138,44 @@
   transition: color 160ms ease, background-color 160ms ease;
 }
 
-.glass-navbar__item:hover {
+.lumanav__item:hover {
   color: rgba(255, 255, 255, 0.8);
 }
 
-.glass-navbar__item:focus-visible {
+.lumanav__item:focus-visible {
   outline: 2px solid rgba(255, 255, 255, 0.82);
   outline-offset: -3px;
 }
 
-.glass-navbar__item--active {
+.lumanav__item--active {
   background: rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.96);
 }
 
 @media (max-width: 640px) {
-  .glass-navbar {
+  .lumanav {
     top: 12px;
     width: calc(100vw - 24px);
     height: 54px;
-    backdrop-filter: blur(9px) saturate(120%);
     -webkit-backdrop-filter: blur(9px) saturate(120%);
+    backdrop-filter: blur(9px) saturate(120%);
   }
 
-  .glass-navbar__mirror-scene--glow {
+  .lumanav__mirror-scene--glow {
     filter: blur(6px) saturate(1.14) brightness(1.1);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .glass-navbar *,
-  .glass-navbar *::before,
-  .glass-navbar *::after {
+  .lumanav *,
+  .lumanav *::before,
+  .lumanav *::after {
     transition-duration: 0.01ms !important;
   }
 }
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .glass-navbar {
+  .lumanav {
     background: rgba(12, 12, 18, 0.94);
   }
 }

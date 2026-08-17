@@ -1,7 +1,17 @@
 import { useLayoutEffect, useRef, useState } from 'react'
-import './GlassNavbar.css'
+import './Lumanav.css'
 
-type NavigationItem = 'overview' | 'features' | 'contact'
+export interface LumanavItem {
+  id: string
+  label: string
+  href?: string
+}
+
+export interface LumanavProps {
+  items: LumanavItem[]
+  defaultActiveItem?: string
+  className?: string
+}
 
 type CapturableVideo = HTMLVideoElement & {
   captureStream?: () => MediaStream
@@ -13,12 +23,6 @@ const REFLECTION_BAND_SIZE = 14
 const REFLECTION_FADE_DURATION = 260
 const REFLECTION_MIN_OPACITY = 0.09
 const REFLECTION_MAX_OPACITY = 0.72
-
-const navigationItems: ReadonlyArray<{ id: NavigationItem; label: string }> = [
-  { id: 'overview', label: 'Overview' },
-  { id: 'features', label: 'Features' },
-  { id: 'contact', label: 'Contact' },
-]
 
 function getReflectionProbeY(navbarBounds: DOMRect) {
   return Math.min(window.innerHeight - 1, navbarBounds.bottom + REFLECTION_DISTANCE)
@@ -134,8 +138,8 @@ function setMirrorGeometry(
   layer.style.setProperty('--reflection-strength', strength.toFixed(3))
 }
 
-export function GlassNavbar() {
-  const [activeItem, setActiveItem] = useState<NavigationItem>('overview')
+export function Lumanav({ items, defaultActiveItem, className = '' }: LumanavProps) {
+  const [activeItem, setActiveItem] = useState<string>(defaultActiveItem ?? items[0]?.id ?? '')
   const navbarRef = useRef<HTMLElement>(null)
   const reflectionARef = useRef<HTMLDivElement>(null)
   const reflectionBRef = useRef<HTMLDivElement>(null)
@@ -158,7 +162,7 @@ export function GlassNavbar() {
     const layerCleanups = new Map<HTMLDivElement, () => void>()
 
     const clearLayer = (layer: HTMLDivElement) => {
-      layer.classList.remove('glass-navbar__reflection--visible')
+      layer.classList.remove('lumanav__reflection--visible')
       layerCleanups.get(layer)?.()
       layerCleanups.delete(layer)
       layer.replaceChildren()
@@ -168,10 +172,10 @@ export function GlassNavbar() {
       const createScene = (variant: 'edge' | 'glow') => {
         const mirror = source.cloneNode(true) as HTMLElement
         makeMirrorSafe(mirror)
-        mirror.classList.add('glass-navbar__mirror-source')
+        mirror.classList.add('lumanav__mirror-source')
 
         const scene = document.createElement('div')
-        scene.className = `glass-navbar__mirror-scene glass-navbar__mirror-scene--${variant} glass-demo`
+        scene.className = `lumanav__mirror-scene lumanav__mirror-scene--${variant} glass-demo`
         scene.append(mirror)
 
         return { cleanup: connectMirroredVideos(source, mirror), scene }
@@ -180,7 +184,7 @@ export function GlassNavbar() {
       const glow = createScene('glow')
       const edge = createScene('edge')
       const edgeFade = document.createElement('div')
-      edgeFade.className = 'glass-navbar__mirror-edge-fade'
+      edgeFade.className = 'lumanav__mirror-edge-fade'
       edgeFade.append(edge.scene)
 
       layer.replaceChildren(glow.scene, edgeFade)
@@ -223,10 +227,10 @@ export function GlassNavbar() {
         clearLayer(nextLayer)
         populateLayer(nextLayer, source)
         setMirrorGeometry(nextLayer, source, navbarBounds)
-        nextLayer.classList.add('glass-navbar__reflection--visible')
+        nextLayer.classList.add('lumanav__reflection--visible')
 
         if (currentSource) {
-          activeLayer.classList.remove('glass-navbar__reflection--visible')
+          activeLayer.classList.remove('lumanav__reflection--visible')
           fadeTimer = window.setTimeout(() => clearLayer(activeLayer), REFLECTION_FADE_DURATION)
         }
 
@@ -286,25 +290,40 @@ export function GlassNavbar() {
   }, [])
 
   return (
-    <nav ref={navbarRef} className="glass-navbar" aria-label="Demo navigation">
+    <nav ref={navbarRef} className={`lumanav ${className}`.trim()} aria-label="Demo navigation">
       <div
         ref={reflectionARef}
-        className="glass-navbar__reflection glass-navbar__reflection--a"
+        className="lumanav__reflection lumanav__reflection--a"
         aria-hidden="true"
       />
       <div
         ref={reflectionBRef}
-        className="glass-navbar__reflection glass-navbar__reflection--b"
+        className="lumanav__reflection lumanav__reflection--b"
         aria-hidden="true"
       />
-      <div className="glass-navbar__content">
-        {navigationItems.map((item) => {
+      <div className="lumanav__content">
+        {items.map((item) => {
           const isActive = activeItem === item.id
+          const itemClassName = `lumanav__item${isActive ? ' lumanav__item--active' : ''}`
+
+          if (item.href) {
+            return (
+              <a
+                key={item.id}
+                href={item.href}
+                className={itemClassName}
+                aria-current={isActive ? 'page' : undefined}
+                onClick={() => setActiveItem(item.id)}
+              >
+                {item.label}
+              </a>
+            )
+          }
 
           return (
             <button
               key={item.id}
-              className={`glass-navbar__item${isActive ? ' glass-navbar__item--active' : ''}`}
+              className={itemClassName}
               type="button"
               aria-pressed={isActive}
               onClick={() => setActiveItem(item.id)}

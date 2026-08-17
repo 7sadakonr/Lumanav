@@ -1,17 +1,32 @@
 {
-  "name": "glass-navbar-demo",
-  "private": true,
-  "version": "0.0.0",
+  "name": "@7sadakonr/lumanav",
+  "version": "0.1.1",
+  "description": "Glassmorphism React Navbar Component with real-time reflection",
   "type": "module",
+  "main": "dist/lumanav.cjs",
+  "module": "dist/lumanav.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/lumanav.js",
+      "require": "./dist/lumanav.cjs"
+    },
+    "./style.css": "./dist/lumanav.css"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "vite build && tsc -b tsconfig.lib.json",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepublishOnly": "npm run build"
   },
-  "dependencies": {
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8"
+  "peerDependencies": {
+    "react": ">=18 <20",
+    "react-dom": ">=18 <20"
   },
   "devDependencies": {
     "@types/node": "^24.13.3",
@@ -19,6 +34,8 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.4",
     "oxlint": "^1.75.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
     "typescript": "~6.0.2",
     "vite": "^8.2.0"
   }
